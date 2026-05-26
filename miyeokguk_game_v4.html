@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>미역국을 만들어라! - 배달의민족</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{
+  width:100%;height:100%;
+  background:#CBCBCB;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden;
+}
+/* ── PHONE SHELL ── */
+#phoneShell{
+  position:relative;
+  width:390px;height:844px;
+  background:#F8F8F8;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,0.4);
+  border-radius:44px;
+  border:1px solid #BBB;
+  transform-origin:center center;
+}
+
+/* ══════════════════ APP BG ══════════════════ */
+#appBg{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  background:#F0F0F0;
+  border-radius:44px;
+  overflow:hidden;
+}
+.status-bar{
+  height:44px;background:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;font-size:13px;font-weight:700;color:#111;
+  flex-shrink:0;border-radius:44px 44px 0 0;
+}
+.status-right{display:flex;align-items:center;gap:5px;font-size:12px;}
+.app-header{
+  height:50px;background:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;flex-shrink:0;
+  border-bottom:1px solid #F0F0F0;
+}
+.header-loc{font-size:16px;font-weight:900;color:#111;display:flex;align-items:center;gap:3px;}
+.header-right{display:flex;gap:14px;font-size:20px;}
+.app-search{background:#fff;padding:8px 14px 10px;flex-shrink:0;}
+.search-box{
+  background:#F3F3F3;border-radius:24px;height:42px;
+  display:flex;align-items:center;padding:0 16px;gap:8px;
+  font-size:14px;color:#AAA;
+}
+.app-banner{
+  margin:0 14px 8px;
+  background:linear-gradient(135deg,#C8FAF4 0%,#A0F4EC 60%,#78EEE4 100%);
+  border-radius:14px;padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.banner-text .bt1{font-size:11px;color:#00695C;font-weight:700;margin-bottom:3px;}
+.banner-text .bt2{font-size:14px;font-weight:900;color:#004D40;line-height:1.35;}
+.banner-text .bt3{font-size:11px;color:#00796B;font-weight:700;margin-top:4px;}
+.banner-badge{
+  background:#00BFA5;color:#fff;border-radius:10px;padding:8px 10px;
+  font-size:11px;font-weight:900;text-align:center;line-height:1.5;
+  flex-shrink:0;margin-left:10px;
+}
+.app-tabs{
+  display:flex;background:#fff;border-bottom:1px solid #EEE;
+  overflow-x:auto;flex-shrink:0;
+}
+.app-tabs::-webkit-scrollbar{display:none;}
+.tab-item{flex-shrink:0;padding:10px 14px;font-size:13px;color:#999;font-weight:500;position:relative;white-space:nowrap;}
+.tab-item.active{color:#111;font-weight:900;}
+.tab-item.active::after{content:'';position:absolute;bottom:0;left:14px;right:14px;height:2.5px;background:#111;border-radius:2px;}
+.app-cats{background:#fff;padding:12px 8px 8px;flex-shrink:0;}
+.cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px 0;}
+.cat-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 2px;}
+.cat-circle{width:50px;height:50px;border-radius:50%;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-size:22px;position:relative;}
+.cat-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#FF3D5A;color:#fff;font-size:7.5px;font-weight:700;padding:1px 5px;border-radius:6px;white-space:nowrap;}
+.cat-badge.teal{background:#0EEED3;color:#005C55;}
+.cat-label{font-size:11px;color:#444;text-align:center;line-height:1.3;}
+.app-stores{background:#fff;border-top:6px solid #F2F2F2;padding:10px 14px;flex-shrink:0;}
+.store-row{display:flex;gap:10px;overflow-x:auto;}
+.store-row::-webkit-scrollbar{display:none;}
+.store-pill{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.store-circle{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;border:1px solid #EEE;position:relative;}
+.store-circle .free-tag{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:#0EEED3;color:#005C55;font-size:7px;font-weight:700;padding:1px 5px;border-radius:5px;white-space:nowrap;border:1px solid #00C8B8;}
+.store-label{font-size:10px;color:#666;text-align:center;}
+.app-notify{flex:1;background:#F8F8F8;border-top:6px solid #EDEDED;padding:14px;}
+.notify-tip{font-size:11px;color:#FF3D5A;font-weight:700;margin-bottom:4px;}
+.notify-big{font-size:17px;font-weight:900;color:#111;}
+.app-bottomnav{
+  height:72px;background:#fff;border-top:1px solid #EEE;
+  display:flex;align-items:center;flex-shrink:0;
+  border-radius:0 0 44px 44px;padding-bottom:6px;
+}
+.nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.nav-i .ni{font-size:22px;}
+.nav-i .nl{font-size:10px;color:#999;}
+.nav-i.on .nl{color:#111;font-weight:700;}
+.nav-mid{
+  width:54px;height:54px;border-radius:50%;
+  background:#0EEED3;display:flex;align-items:center;justify-content:center;
+  font-size:24px;flex:0 0 54px;margin-top:-12px;
+}
+
+/* ══════════════════ POPUP BOTTOM SHEET ══════════════════ */
+#dimOverlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,0);
+  z-index:19;
+  pointer-events:none;
+  transition:background .3s;
+  border-radius:44px;
+}
+#dimOverlay.dim{background:rgba(0,0,0,0.52);pointer-events:all;}
+
+#popup{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  width:390px;
+  background:#fff;
+  border-radius:22px 22px 0 0;
+  display:flex;flex-direction:column;
+  box-shadow:0 -6px 40px rgba(0,0,0,0.2);
+  z-index:20;
+  /* height includes peek + full content */
+  height:760px;
+  transform:translateY(680px); /* peek: show top 80px */
+  transition:transform .48s cubic-bezier(0.32,0.72,0,1);
+  will-change:transform;
+  touch-action:none;
+}
+#popup.peek{transform:translateY(680px);}
+#popup.open{transform:translateY(0);}
+
+/* Drag handle zone (full-width, grabbable) */
+#dragHandle{
+  width:100%;
+  height:52px;
+  flex-shrink:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:6px;
+  cursor:grab;
+  user-select:none;
+  background:#fff;
+  border-radius:22px 22px 0 0;
+}
+#dragHandle:active{cursor:grabbing;}
+#dragHandle .handle-bar{
+  width:44px;height:4px;background:#DDD;border-radius:2px;
+}
+#dragHandle .handle-hint{
+  font-size:10px;color:#0EEED3;font-weight:700;letter-spacing:0.3px;
+  animation:hintBounce 1.4s ease-in-out infinite;
+}
+@keyframes hintBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+#popup.open #dragHandle .handle-hint{display:none;}
+
+.popup-header{
+  background:#0EEED3;
+  padding:10px 16px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.popup-logo-group{display:flex;align-items:center;gap:8px;}
+.popup-logo{font-size:16px;font-weight:900;color:#003D38;}
+.popup-badge{background:rgba(0,0,0,0.15);color:#003D38;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.popup-close{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,0.12);border:none;cursor:pointer;
+  font-size:15px;color:#003D38;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* GAME AREA */
+#gameArea{flex:1;position:relative;overflow:hidden;}
+#gameCanvas{display:block;width:390px;}
+
+#hud{
+  position:absolute;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 14px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.92) 0%,transparent 100%);
+  z-index:4;pointer-events:none;
+}
+.hud-score{font-size:13px;font-weight:700;color:#1A1A1A;}
+.hud-lives{font-size:16px;}
+
+#toast{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  background:rgba(20,20,20,0.85);color:#fff;
+  font-size:13px;font-weight:700;padding:9px 18px;border-radius:24px;
+  white-space:nowrap;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none;
+}
+#toast.show{opacity:1;}
+
+/* ORDER BAR */
+#orderBar{
+  background:#0EEED3;padding:8px 12px 14px;
+  display:flex;align-items:center;gap:7px;
+  flex-shrink:0;border-top:2px solid #00C8B8;
+}
+.bar-lbl{font-size:11px;font-weight:700;color:#003D38;flex-shrink:0;}
+.step-icons-row{display:flex;gap:5px;flex:1;}
+.s-icon{
+  width:36px;height:36px;border:2.5px solid rgba(0,60,55,0.25);
+  background:rgba(255,255,255,0.55);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;transition:all .2s;overflow:hidden;flex-shrink:0;
+}
+.s-icon.done{background:rgba(0,60,55,0.2);border-color:rgba(0,60,55,0.35);}
+.s-icon.active{
+  background:#fff;border-color:#007A70;
+  box-shadow:0 0 0 2.5px #007A70;
+  animation:siPulse .6s infinite alternate;
+}
+.s-icon.active::after{
+  content:'▼';position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);
+  font-size:8px;color:#007A70;
+}
+@keyframes siPulse{from{transform:scale(1)}to{transform:scale(1.12)}}
+
+/* SCREENS */
+.screen{
+  position:absolute;inset:0;display:none;
+  flex-direction:column;align-items:center;
+  overflow-y:auto;z-index:5;
+  padding:16px 20px 28px;
+}
+.screen.visible{display:flex;}
+#startScreen{background:linear-gradient(180deg,#E0FBF8 0%,#fff 40%);}
+
+/* ── Clear / GameOver / Done screens need solid BG ── */
+#clearScreen{background:#fff;}
+#gameoverScreen{background:#fff;}
+#doneScreen{background:#fff;}
+
+.s-badge{background:#0EEED3;color:#003D38;font-size:11px;font-weight:700;padding:5px 16px;border-radius:20px;margin-bottom:10px;}
+.s-bowl{font-size:62px;margin-bottom:8px;line-height:1;}
+.s-title{font-size:26px;font-weight:900;color:#111;text-align:center;line-height:1.3;margin-bottom:6px;}
+.s-sub{font-size:13px;color:#666;text-align:center;line-height:1.75;margin-bottom:14px;}
+.ing-section-ttl{font-size:13px;font-weight:700;color:#111;align-self:flex-start;margin-bottom:8px;border-left:4px solid #0EEED3;padding-left:8px;}
+.ing-grid{display:flex;gap:6px;margin-bottom:14px;width:100%;}
+.ing-card{
+  flex:1;background:#fff;border:2px solid #E0E0E0;
+  border-radius:10px;padding:7px 4px 7px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:2px 2px 0 #E8E8E8;
+}
+.ing-num{width:18px;height:18px;border-radius:50%;background:#0EEED3;font-size:10px;font-weight:900;color:#003D38;display:flex;align-items:center;justify-content:center;}
+.ing-cvs{width:44px;height:44px;display:flex;align-items:center;justify-content:center;}
+.ing-lbl{font-size:10px;font-weight:700;color:#333;text-align:center;line-height:1.3;}
+.guide-box{background:#F0FFFE;border:2px solid #0EEED3;border-radius:10px;padding:10px 14px;width:100%;margin-bottom:12px;}
+.guide-box p{font-size:12px;color:#444;line-height:2;}
+.guide-box strong{color:#FF3D5A;}
+.ctrl-box{background:#F5F5F5;border-radius:10px;padding:8px 14px;width:100%;margin-bottom:16px;}
+.ctrl-box p{font-size:12px;color:#777;line-height:1.9;text-align:center;}
+.pbtn{
+  width:100%;padding:15px;background:#0EEED3;color:#003D38;
+  border:none;border-radius:14px;
+  font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:900;
+  cursor:pointer;margin-bottom:8px;transition:transform .1s;
+  box-shadow:0 4px 16px rgba(14,238,211,0.38);
+}
+.pbtn:active{transform:scale(0.97);}
+.pbtn.green{background:#00C73C;color:#fff;box-shadow:0 4px 14px rgba(0,199,60,0.3);}
+.pbtn.red{background:#FF3D5A;color:#fff;box-shadow:0 4px 14px rgba(255,61,90,0.3);}
+.pbtn.ghost{background:#F5F5F5;color:#333;box-shadow:none;}
+.pbtn.dark{background:#1A1A1A;color:#fff;box-shadow:none;}
+.res-icon{font-size:58px;margin-bottom:8px;margin-top:10px;}
+.res-title{font-size:24px;font-weight:900;color:#111;margin-bottom:6px;text-align:center;}
+.res-sub{font-size:13px;color:#666;line-height:1.8;text-align:center;margin-bottom:14px;}
+.don-card{background:#F0FFFE;border:2.5px solid #0EEED3;border-radius:14px;padding:14px 16px;width:100%;margin-bottom:14px;}
+.don-amt{font-size:30px;font-weight:900;color:#007A70;text-align:center;margin-bottom:6px;}
+.don-card p{font-size:12px;color:#555;line-height:2;text-align:center;}
+.camp-note{font-size:11px;color:#888;line-height:1.9;text-align:center;margin-bottom:16px;}
+.divider{width:100%;height:1px;background:#F0F0F0;margin:8px 0 14px;}
+</style>
+</head>
+<body>
+<div id="phoneShell">
+
+<!-- ══════════════════ APP BACKGROUND ══════════════════ -->
+<div id="appBg">
+  <div class="status-bar">
+    <span>16:51</span>
+    <div class="status-right"><span>▲▼</span><span>WiFi</span><span>🔋 85</span></div>
+  </div>
+  <div class="app-header">
+    <div class="header-loc">대흥동 22-60 <span style="font-size:12px;color:#666">▾</span></div>
+    <div class="header-right"><span>🏷️</span><span>🔔</span><span>🛒</span></div>
+  </div>
+  <div class="app-search">
+    <div class="search-box"><span>🔍</span><span>포케? 돈까스? 커리?</span></div>
+  </div>
+  <div class="app-banner">
+    <div class="banner-text">
+      <div class="bt1">무료체험부터 3천원 쿠폰까지</div>
+      <div class="bt2">다 받을 수 있는<br>절호의 기회!</div>
+      <div class="bt3">가입하고 혜택받기 ›</div>
+    </div>
+    <div class="banner-badge">배민클럽<br>무료체험</div>
+  </div>
+  <div class="app-tabs">
+    <div class="tab-item active">음식배달</div>
+    <div class="tab-item">픽업</div>
+    <div class="tab-item">장보기·쇼핑</div>
+    <div class="tab-item">선물하기</div>
+    <div class="tab-item">혜택모아보기</div>
+  </div>
+  <div class="app-cats">
+    <div class="cats-grid">
+      <div class="cat-item"><div class="cat-circle" style="background:#FFF3CD"><div class="cat-badge">최대1만원</div>🏷️</div><div class="cat-label">배짱할인</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#FFF3E0">☕</div><div class="cat-label">카페·디저트</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#FFF8E1">🍔</div><div class="cat-label">패스트푸드</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#FFF3E0">🍗</div><div class="cat-label">치킨</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#FCE4EC">🍜</div><div class="cat-label">분식</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#E8F5E9">🥟</div><div class="cat-label">중식</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#E8F5E9">🍱</div><div class="cat-label">한식</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#E3F2FD"><div class="cat-badge teal">100원딜</div>🥗</div><div class="cat-label">한그릇</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#F3E5F5">📦</div><div class="cat-label">픽업이벤트</div></div>
+      <div class="cat-item"><div class="cat-circle" style="background:#E0F7FA">🤝</div><div class="cat-label">만나서결제</div></div>
+    </div>
+  </div>
+  <div class="app-stores">
+    <div class="store-row">
+      <div class="store-pill"><div class="store-circle" style="background:#362F7A;color:#fff;font-size:10px"><div class="free-tag">무료배달</div>B마트</div><div class="store-label">B마트</div></div>
+      <div class="store-pill"><div class="store-circle" style="background:#005BAC;color:#fff;font-size:14px;font-weight:900"><div class="free-tag">무료배달</div>CU</div><div class="store-label">CU</div></div>
+      <div class="store-pill"><div class="store-circle" style="background:#F05014;color:#fff;font-size:10px">emart</div><div class="store-label">이마트</div></div>
+      <div class="store-pill"><div class="store-circle" style="background:#006633;color:#fff;font-size:8px;text-align:center;line-height:1.3">GS<br>FRESH</div><div class="store-label">GS더프레시</div></div>
+      <div class="store-pill"><div class="store-circle" style="background:#006633;color:#fff;font-size:12px;font-weight:900">GS25</div><div class="store-label">GS25</div></div>
+    </div>
+  </div>
+  <div class="app-notify">
+    <div class="notify-tip">ⓘ 확인하지 않은 혜택이 있습니다</div>
+    <div class="notify-big">배민클럽 무료체험 당첨 🎉</div>
+  </div>
+  <div class="app-bottomnav">
+    <div class="nav-i on"><span class="ni">🏠</span><span class="nl">홈</span></div>
+    <div class="nav-i"><span class="ni">🛍️</span><span class="nl" style="font-size:9px">장보기·쇼핑</span></div>
+    <div class="nav-mid">🤍</div>
+    <div class="nav-i"><span class="ni">📋</span><span class="nl">주문내역</span></div>
+    <div class="nav-i"><span class="ni">👤</span><span class="nl">마이배민</span></div>
+  </div>
+</div>
+
+<!-- DIM OVERLAY -->
+<div id="dimOverlay" onclick="handleDimClick()"></div>
+
+<!-- ══════════════════ POPUP BOTTOM SHEET ══════════════════ -->
+<div id="popup">
+  <!-- DRAG HANDLE (grab here to pull up) -->
+  <div id="dragHandle">
+    <div class="handle-bar"></div>
+    <div class="handle-hint">▲ 위로 올려 게임 시작!</div>
+  </div>
+
+  <!-- Header -->
+  <div class="popup-header">
+    <div class="popup-logo-group">
+      <span class="popup-logo">🛵 배달의민족</span>
+      <span class="popup-badge">미니게임</span>
+    </div>
+    <button class="popup-close" onclick="closePopup()">✕</button>
+  </div>
+
+  <!-- GAME AREA -->
+  <div id="gameArea">
+    <canvas id="gameCanvas" width="390" height="460"></canvas>
+    <div id="hud">
+      <span class="hud-score" id="scoreDisp">SCORE: 0</span>
+      <span class="hud-lives" id="livesDisp">❤️❤️❤️</span>
+    </div>
+    <div id="toast"></div>
+
+    <!-- START SCREEN -->
+    <div class="screen visible" id="startScreen">
+      <div class="s-badge">🎮 NEW · 배민 미니게임</div>
+      <div class="s-bowl">🍲</div>
+      <div class="s-title">미역국을 만들어라!</div>
+      <div class="s-sub">순서대로 떨어지는 재료를 그릇에 담아<br>맛있는 미역국을 완성하세요!</div>
+      <div class="ing-section-ttl">📦 등장 재료 미리보기</div>
+      <div class="ing-grid" id="ingGrid"></div>
+      <div class="guide-box">
+        <p>📋 <strong>순서대로</strong> 재료를 받으세요<br>
+        참기름→마늘→소고기→미역→국간장<br>
+        잘못된 재료를 받으면 <strong>❤️ -1 (3번 실패 시 종료!)</strong></p>
+      </div>
+      <div class="ctrl-box">
+        <p>📱 화면 드래그·터치로 그릇 이동<br>⌨️ PC: ← → 방향키</p>
+      </div>
+      <button class="pbtn" onclick="startGame()">게임 시작 ▶</button>
+    </div>
+
+    <!-- CLEAR SCREEN -->
+    <div class="screen" id="clearScreen">
+      <div class="res-icon">🎉</div>
+      <div class="res-title">미역국 완성!</div>
+      <div class="res-sub">모든 재료를 순서대로 담았어요!<br>당신은 진정한 미역국 마스터! 🏆</div>
+      <div class="don-card">
+        <div class="don-amt">🎁 +51원</div>
+        <p>미션 클리어 적립금이 쌓입니다<br>배민과 함께하는 따뜻한 나눔 🍲</p>
+      </div>
+      <div class="camp-note">
+        본 캠페인은 산후 한부모가정 양육자 지원 캠페인입니다<br>
+        클리어 인원 × 51원이 기부금으로 전달됩니다<br>
+        <small>(한부모가정의 날 5월 10일 기념)</small>
+      </div>
+      <button class="pbtn green" onclick="missionClear()">🎁 미션 클리어! (+51원 적립)</button>
+      <button class="pbtn ghost" onclick="restartGame()">다시하기 ↩</button>
+    </div>
+
+    <!-- GAMEOVER SCREEN -->
+    <div class="screen" id="gameoverScreen">
+      <div class="res-icon">💔</div>
+      <div class="res-title">GAME OVER</div>
+      <div class="res-sub">재료를 3번 잘못 담았어요!<br>다시 도전해서 미역국을 완성해봐요 💪</div>
+      <button class="pbtn red" onclick="restartGame()">다시하기 ↩</button>
+      <button class="pbtn ghost" onclick="closePopup()">나중에 하기</button>
+    </div>
+
+    <!-- DONE SCREEN -->
+    <div class="screen" id="doneScreen">
+      <div class="res-icon">💛</div>
+      <div class="res-title">기부 완료!</div>
+      <div class="don-card">
+        <div class="don-amt">❤️ 51원</div>
+        <p>따뜻한 미역국 한 그릇의 마음이<br>산후 한부모가정 양육자에게 전달됩니다<br><br>함께해 주셔서 감사합니다 🙏</p>
+      </div>
+      <div class="camp-note">#배달의민족 #한부모가정지원 #산후지원캠페인</div>
+      <button class="pbtn dark" onclick="restartGame()">한 번 더 도전!</button>
+      <button class="pbtn ghost" onclick="closePopup()">닫기</button>
+    </div>
+  </div><!-- end gameArea -->
+
+  <!-- ORDER BAR -->
+  <div id="orderBar">
+    <span class="bar-lbl">순서</span>
+    <div class="step-icons-row" id="stepIconsRow"></div>
+  </div>
+</div><!-- end popup -->
+
+</div><!-- end phoneShell -->
+
+<script>
+// ═════════════════════════════════════════════════
+// CANVAS
+// ═════════════════════════════════════════════════
+const C = document.getElementById('gameCanvas');
+const ctx = C.getContext('2d');
+const W = 390, H = 460;
+
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){
+    r=Math.min(r,w/2,h/2);
+    this.moveTo(x+r,y);this.lineTo(x+w-r,y);this.quadraticCurveTo(x+w,y,x+w,y+r);
+    this.lineTo(x+w,y+h-r);this.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    this.lineTo(x+r,y+h);this.quadraticCurveTo(x,y+h,x,y+h-r);
+    this.lineTo(x,y+r);this.quadraticCurveTo(x,y,x+r,y);
+    this.closePath();return this;
+  };
+}
+
+// ═════════════════════════════════════════════════
+// DRAW FUNCTIONS
+// ═════════════════════════════════════════════════
+
+/* 참기름 */
+function drawSesameOil(c,cx,cy,sz){
+  const p=sz/14;
+  c.fillStyle='#333';c.fillRect(cx-2*p,cy-6*p,4*p,2*p);
+  c.fillStyle='#FF3D5A';c.fillRect(cx-1.5*p,cy-7.5*p,3*p,1.5*p);
+  c.fillStyle='#FF8F00';c.fillRect(cx-3*p,cy-4*p,6*p,10*p);
+  c.fillStyle='#FFC107';c.fillRect(cx-2*p,cy-3*p,2*p,8*p);
+  c.fillStyle='#FFD54F';c.fillRect(cx-1*p,cy-3.5*p,p,9*p);
+  c.fillStyle='#fff';c.fillRect(cx-2.5*p,cy-1.5*p,5*p,4*p);
+  c.fillStyle='#333';
+  c.font=`bold ${Math.max(7,p*1.6)}px 'Noto Sans KR',sans-serif`;
+  c.textAlign='center';c.textBaseline='middle';
+  c.fillText('참기름',cx,cy+0.5*p);
+  c.strokeStyle='#1A1A1A';c.lineWidth=2;
+  c.strokeRect(cx-3*p,cy-4*p,6*p,10*p);
+  c.strokeRect(cx-2*p,cy-6*p,4*p,2*p);
+}
+
+/* 마늘 - realistic garlic bulb */
+function drawGarlic(c,cx,cy,sz){
+  const p=sz/14;
+  // Roots
+  c.strokeStyle='#C8B89A';c.lineWidth=1;
+  for(let i=-2;i<=2;i++){
+    c.beginPath();c.moveTo(cx+i*p*1.2,cy+p*4.2);
+    c.quadraticCurveTo(cx+i*p*1.8,cy+p*5.5,cx+i*p*1.4,cy+p*6);
+    c.stroke();
+  }
+  // Base flat area
+  c.fillStyle='#D4C5A9';
+  c.beginPath();c.ellipse(cx,cy+p*4,p*4.5,p*1.2,0,0,Math.PI*2);c.fill();
+  // Main bulb - outer papery skin
+  c.fillStyle='#F5F0E8';
+  c.beginPath();c.ellipse(cx,cy+p*0.5,p*4.2,p*4.5,0,0,Math.PI*2);c.fill();
+  // Clove separation lines (3 cloves visible)
+  c.strokeStyle='#C8B89A';c.lineWidth=1.5;
+  // Left clove boundary
+  c.beginPath();c.moveTo(cx-p*1.2,cy-p*3.5);c.quadraticCurveTo(cx-p*3,cy+p,cx-p*2,cy+p*4);c.stroke();
+  // Right clove boundary
+  c.beginPath();c.moveTo(cx+p*1.2,cy-p*3.5);c.quadraticCurveTo(cx+p*3,cy+p,cx+p*2,cy+p*4);c.stroke();
+  // Shading: center clove lighter
+  c.fillStyle='rgba(255,255,255,0.45)';
+  c.beginPath();c.ellipse(cx,cy,p*1.3,p*3.5,0,0,Math.PI*2);c.fill();
+  // Left shading
+  c.fillStyle='rgba(180,160,130,0.22)';
+  c.beginPath();c.ellipse(cx-p*2.5,cy+p*0.5,p*1.4,p*2.8,-.2,0,Math.PI*2);c.fill();
+  // Right shading
+  c.beginPath();c.ellipse(cx+p*2.5,cy+p*0.5,p*1.4,p*2.8,.2,0,Math.PI*2);c.fill();
+  // Top point / beak
+  c.fillStyle='#BDB09A';
+  c.beginPath();c.moveTo(cx,cy-p*4);
+  c.quadraticCurveTo(cx-p,cy-p*3,cx-p*0.8,cy-p*3.2);
+  c.quadraticCurveTo(cx,cy-p*5.2,cx,cy-p*4);
+  c.fill();
+  c.beginPath();c.moveTo(cx,cy-p*4);
+  c.quadraticCurveTo(cx+p,cy-p*3,cx+p*0.8,cy-p*3.2);
+  c.quadraticCurveTo(cx,cy-p*5.2,cx,cy-p*4);
+  c.fill();
+  // Outer bulb outline
+  c.strokeStyle='#8C7B65';c.lineWidth=2;
+  c.beginPath();c.ellipse(cx,cy+p*0.5,p*4.2,p*4.5,0,0,Math.PI*2);c.stroke();
+  // Stem
+  c.fillStyle='#8C7B65';c.fillRect(cx-p*0.7,cy-p*8.5,p*1.4,p*4.5);
+  c.strokeStyle='#5C4B35';c.lineWidth=1.5;c.strokeRect(cx-p*0.7,cy-p*8.5,p*1.4,p*4.5);
+  // Stem tip
+  c.fillStyle='#6D8A4A';c.fillRect(cx-p*0.5,cy-p*9.5,p,p*1.2);
+}
+
+/* 소고기 - 두툼한 생고기 슬라이스 */
+function drawBeef(c,cx,cy,sz){
+  const p=sz/14;
+  // Main meat body - irregular shape
+  c.fillStyle='#C62828';
+  c.beginPath();
+  c.moveTo(cx-5.5*p,cy-1*p);
+  c.quadraticCurveTo(cx-5*p,cy-3.5*p,cx-3*p,cy-4*p);
+  c.quadraticCurveTo(cx,cy-4.5*p,cx+3*p,cy-4*p);
+  c.quadraticCurveTo(cx+5*p,cy-3.5*p,cx+5.5*p,cy-1.5*p);
+  c.quadraticCurveTo(cx+5.5*p,cy+1.5*p,cx+4*p,cy+3.5*p);
+  c.quadraticCurveTo(cx+1*p,cy+4.5*p,cx-2*p,cy+4*p);
+  c.quadraticCurveTo(cx-4.5*p,cy+3*p,cx-5.5*p,cy+1*p);
+  c.closePath();c.fill();
+  // Darker meat base
+  c.fillStyle='#B71C1C';
+  c.beginPath();
+  c.moveTo(cx-5.5*p,cy+0.5*p);
+  c.quadraticCurveTo(cx-4*p,cy+4*p,cx-2*p,cy+4*p);
+  c.quadraticCurveTo(cx+1*p,cy+4.5*p,cx+4*p,cy+3.5*p);
+  c.quadraticCurveTo(cx+5.5*p,cy+2*p,cx+5.5*p,cy+1.5*p);
+  c.closePath();c.fill();
+  // Fat layer top
+  c.fillStyle='#FFF8E1';
+  c.beginPath();
+  c.moveTo(cx-5.5*p,cy-1.5*p);
+  c.quadraticCurveTo(cx-5*p,cy-3.5*p,cx-3*p,cy-4*p);
+  c.quadraticCurveTo(cx,cy-4.5*p,cx+3*p,cy-4*p);
+  c.quadraticCurveTo(cx+5*p,cy-3.8*p,cx+5.5*p,cy-1.5*p);
+  c.lineTo(cx+4.5*p,cy-1*p);
+  c.quadraticCurveTo(cx+3.5*p,cy-3*p,cx,cy-3.5*p);
+  c.quadraticCurveTo(cx-3*p,cy-3*p,cx-4.5*p,cy-1*p);
+  c.closePath();c.fill();
+  // Fat outline (top)
+  c.strokeStyle='#E0D080';c.lineWidth=1;
+  c.beginPath();
+  c.moveTo(cx-4.5*p,cy-1*p);
+  c.quadraticCurveTo(cx-3*p,cy-3*p,cx,cy-3.5*p);
+  c.quadraticCurveTo(cx+3.5*p,cy-3*p,cx+4.5*p,cy-1*p);
+  c.stroke();
+  // Marbling lines
+  c.strokeStyle='rgba(255,240,220,0.8)';c.lineWidth=1.8;
+  c.beginPath();c.moveTo(cx-3.5*p,cy+0.5*p);c.quadraticCurveTo(cx-1*p,cy-0.5*p,cx+2*p,cy+0.5*p);c.stroke();
+  c.beginPath();c.moveTo(cx-2.5*p,cy+2*p);c.quadraticCurveTo(cx,cy+1*p,cx+2.5*p,cy+2*p);c.stroke();
+  c.strokeStyle='rgba(255,240,220,0.5)';c.lineWidth=1;
+  c.beginPath();c.moveTo(cx-1*p,cy-0.5*p);c.lineTo(cx+0.5*p,cy+1.5*p);c.stroke();
+  // Highlight top-left
+  c.fillStyle='rgba(255,120,120,0.35)';
+  c.beginPath();c.ellipse(cx-2*p,cy-1.5*p,2.5*p,1.5*p,-0.3,0,Math.PI*2);c.fill();
+  // Outer outline
+  c.strokeStyle='#7B1515';c.lineWidth=2.2;
+  c.beginPath();
+  c.moveTo(cx-5.5*p,cy-1*p);
+  c.quadraticCurveTo(cx-5*p,cy-3.5*p,cx-3*p,cy-4*p);
+  c.quadraticCurveTo(cx,cy-4.5*p,cx+3*p,cy-4*p);
+  c.quadraticCurveTo(cx+5*p,cy-3.5*p,cx+5.5*p,cy-1.5*p);
+  c.quadraticCurveTo(cx+5.5*p,cy+1.5*p,cx+4*p,cy+3.5*p);
+  c.quadraticCurveTo(cx+1*p,cy+4.5*p,cx-2*p,cy+4*p);
+  c.quadraticCurveTo(cx-4.5*p,cy+3*p,cx-5.5*p,cy+1*p);
+  c.closePath();c.stroke();
+}
+
+/* 미역 */
+function drawSeaweed(c,cx,cy,sz){
+  const p=sz/16;
+  const ox=cx-6*p, oy=cy-8*p;
+  const D='#1B5E20',M='#2E7D32',L='#43A047',LL='#81C784';
+  c.fillStyle=LL;c.fillRect(ox,oy+p,3*p,p);
+  c.fillStyle=L;c.fillRect(ox,oy+2*p,4*p,p);
+  c.fillStyle=M;c.fillRect(ox,oy+3*p,4*p,p);
+  c.fillStyle=D;c.fillRect(ox+p,oy+4*p,3*p,p);
+  c.fillStyle=LL;c.fillRect(ox+9*p,oy+p,3*p,p);
+  c.fillStyle=L;c.fillRect(ox+8*p,oy+2*p,4*p,p);
+  c.fillStyle=M;c.fillRect(ox+8*p,oy+3*p,4*p,p);
+  c.fillStyle=D;c.fillRect(ox+8*p,oy+4*p,3*p,p);
+  c.fillStyle=M;c.fillRect(ox+5*p,oy,2*p,p);
+  c.fillStyle=D;c.fillRect(ox+5*p,oy+p,2*p,4*p);
+  c.fillStyle=M;c.fillRect(ox+4*p,oy+5*p,4*p,p);
+  c.fillStyle=D;c.fillRect(ox+4*p,oy+6*p,4*p,p);
+  c.fillStyle=LL;c.fillRect(ox+p,oy+7*p,4*p,p);
+  c.fillStyle=L;c.fillRect(ox,oy+8*p,5*p,p);
+  c.fillStyle=M;c.fillRect(ox,oy+9*p,5*p,p);
+  c.fillStyle=D;c.fillRect(ox+p,oy+10*p,3*p,p);
+  c.fillStyle=LL;c.fillRect(ox+7*p,oy+7*p,4*p,p);
+  c.fillStyle=L;c.fillRect(ox+7*p,oy+8*p,5*p,p);
+  c.fillStyle=M;c.fillRect(ox+7*p,oy+9*p,5*p,p);
+  c.fillStyle=D;c.fillRect(ox+8*p,oy+10*p,3*p,p);
+  c.fillStyle=M;c.fillRect(ox+4*p,oy+7*p,4*p,p);
+  c.fillStyle=D;c.fillRect(ox+4*p,oy+8*p,4*p,p);
+  c.fillStyle=M;c.fillRect(ox+4*p,oy+9*p,4*p,p);
+  c.fillStyle=D;c.fillRect(ox+5*p,oy+11*p,2*p,3*p);
+  c.fillStyle=M;c.fillRect(ox+5*p,oy+14*p,2*p,p);
+  c.fillStyle=D;c.fillRect(ox+5*p,oy+15*p,2*p,p);
+}
+
+/* 국간장 */
+function drawSoySauce(c,cx,cy,sz){
+  const p=sz/14;
+  c.fillStyle='#222';c.fillRect(cx-p,cy-7.5*p,2*p,p);
+  c.fillStyle='#333';c.fillRect(cx-1.5*p,cy-6.5*p,3*p,2*p);
+  c.fillStyle='#3E2723';c.fillRect(cx-1.5*p,cy-4.5*p,3*p,1.5*p);
+  c.fillStyle='#4E342E';c.fillRect(cx-4*p,cy-3*p,8*p,9*p);
+  c.fillStyle='#6D4C41';c.fillRect(cx-3*p,cy-2*p,2*p,7*p);
+  c.fillStyle='#8D6E63';c.fillRect(cx-2.5*p,cy-1*p,p,5*p);
+  c.fillStyle='#FFECB3';c.fillRect(cx-3*p,cy-1*p,6*p,4*p);
+  c.fillStyle='#3E2723';
+  c.font=`bold ${Math.max(7,p*1.6)}px 'Noto Sans KR',sans-serif`;
+  c.textAlign='center';c.textBaseline='middle';
+  c.fillText('간장',cx,cy+1*p);
+  c.strokeStyle='#1A1A1A';c.lineWidth=2;
+  c.strokeRect(cx-4*p,cy-3*p,8*p,9*p);
+  c.strokeRect(cx-1.5*p,cy-6.5*p,3*p,2*p);
+}
+
+/* 계란 */
+function drawEgg(c,cx,cy,sz){
+  const p=sz/14;
+  const rows=[[3,4],[2,6],[1,8],[0,10],[0,10],[0,10],[0,10],[0,10],[0,10],[1,8],[2,6],[3,4],[4,2]];
+  const tH=rows.length*p, tW=10*p;
+  const sx=cx-tW/2, sy=cy-tH/2;
+  rows.forEach((r,i)=>{c.fillStyle='#FFFFFF';c.fillRect(sx+r[0]*p,sy+i*p,r[1]*p,p);});
+  const yCy2=sy+8.5*p;
+  c.fillStyle='#FFC107';c.beginPath();c.arc(cx,yCy2,2.6*p,0,Math.PI*2);c.fill();
+  c.strokeStyle='#E65100';c.lineWidth=1.5;c.beginPath();c.arc(cx,yCy2,2.6*p,0,Math.PI*2);c.stroke();
+  c.fillStyle='#FFE082';c.fillRect(cx-1.8*p,yCy2-1.5*p,1.6*p,1.6*p);
+  c.fillStyle='#1A1A1A';
+  rows.forEach((r,i)=>{
+    c.fillRect(sx+r[0]*p,sy+i*p,p,p);
+    c.fillRect(sx+(r[0]+r[1]-1)*p,sy+i*p,p,p);
+  });
+  c.fillRect(sx+rows[0][0]*p,sy,rows[0][1]*p,p);
+  c.fillRect(sx+rows[12][0]*p,sy+12*p,rows[12][1]*p,p);
+}
+
+/* 양파 */
+function drawOnion(c,cx,cy,sz){
+  const p=sz/14;
+  c.fillStyle='#CE93D8';c.beginPath();c.ellipse(cx,cy+p,4.5*p,4*p,0,0,Math.PI*2);c.fill();
+  c.fillStyle='#BA68C8';c.beginPath();c.ellipse(cx,cy,3*p,3*p,0,0,Math.PI*2);c.fill();
+  c.fillStyle='#E1BEE7';c.beginPath();c.ellipse(cx-p,cy-p,p,1.5*p,-0.3,0,Math.PI*2);c.fill();
+  c.fillStyle='#66BB6A';c.fillRect(cx-0.5*p,cy-4.5*p,p,3*p);
+  c.strokeStyle='#2B2B2B';c.lineWidth=1.5;c.beginPath();c.ellipse(cx,cy+p,4.5*p,4*p,0,0,Math.PI*2);c.stroke();
+}
+
+/* 당근 */
+function drawCarrot(c,cx,cy,sz){
+  const p=sz/14;
+  c.fillStyle='#FF7043';c.beginPath();c.moveTo(cx,cy+5*p);c.lineTo(cx-3*p,cy-4*p);c.lineTo(cx+3*p,cy-4*p);c.closePath();c.fill();
+  c.fillStyle='#FF8A65';c.fillRect(cx-1.5*p,cy-2.5*p,2*p,p);
+  c.fillStyle='#66BB6A';c.fillRect(cx-0.5*p,cy-6.5*p,p,3*p);
+  c.fillStyle='#4CAF50';c.fillRect(cx-2*p,cy-6*p,p,2*p);c.fillRect(cx+p,cy-5.5*p,p,2*p);
+  c.strokeStyle='#2B2B2B';c.lineWidth=1.5;c.beginPath();c.moveTo(cx,cy+5*p);c.lineTo(cx-3*p,cy-4*p);c.lineTo(cx+3*p,cy-4*p);c.closePath();c.stroke();
+}
+
+// ═════════════════════════════════════════════════
+// INGREDIENT DEFINITIONS
+// ═════════════════════════════════════════════════
+const ITEMS=[
+  {id:0,name:'참기름',draw:drawSesameOil,bg:'#FFF9C4',border:'#FFC107'},
+  {id:1,name:'마늘',  draw:drawGarlic,  bg:'#FBF8F2',border:'#C8B89A'},
+  {id:2,name:'소고기',draw:drawBeef,    bg:'#FFEBEE',border:'#C62828'},
+  {id:3,name:'미역',  draw:drawSeaweed, bg:'#E8F5E9',border:'#43A047'},
+  {id:4,name:'국간장',draw:drawSoySauce,bg:'#EFEBE9',border:'#795548'},
+];
+const WRONGS=[
+  {id:98,name:'계란',draw:drawEgg,   bg:'#FFFDE7',border:'#FFC107'},
+  {id:97,name:'양파',draw:drawOnion, bg:'#F3E5F5',border:'#CE93D8'},
+  {id:96,name:'당근',draw:drawCarrot,bg:'#FBE9E7',border:'#FF7043'},
+];
+
+// ═════════════════════════════════════════════════
+// INGREDIENT PREVIEW CARDS
+// ═════════════════════════════════════════════════
+function buildIngCards(){
+  const grid=document.getElementById('ingGrid');
+  grid.innerHTML='';
+  ITEMS.forEach((item,i)=>{
+    const card=document.createElement('div');
+    card.className='ing-card';card.style.borderColor=item.border;
+    const num=document.createElement('div');
+    num.className='ing-num';num.textContent=i+1;
+    const wrap=document.createElement('div');wrap.className='ing-cvs';
+    const cv=document.createElement('canvas');
+    cv.width=88;cv.height=88;cv.style.width='44px';cv.style.height='44px';
+    const c2=cv.getContext('2d');
+    c2.fillStyle=item.bg;c2.beginPath();c2.roundRect(0,0,88,88,10);c2.fill();
+    c2.strokeStyle=item.border;c2.lineWidth=2;c2.beginPath();c2.roundRect(1,1,86,86,9);c2.stroke();
+    item.draw(c2,44,44,58);
+    const lbl=document.createElement('div');
+    lbl.className='ing-lbl';lbl.textContent=item.name;
+    wrap.appendChild(cv);card.appendChild(num);card.appendChild(wrap);card.appendChild(lbl);
+    grid.appendChild(card);
+  });
+}
+
+// ═════════════════════════════════════════════════
+// STEP BAR
+// ═════════════════════════════════════════════════
+function buildStepBar(){
+  const row=document.getElementById('stepIconsRow');
+  row.innerHTML='';
+  ITEMS.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='s-icon'+(i<step?' done':i===step?' active':'');
+    d.id='si'+i;
+    const cv=document.createElement('canvas');
+    cv.width=56;cv.height=56;cv.style.width='28px';cv.style.height='28px';
+    const c2=cv.getContext('2d');
+    if(i<step){
+      c2.fillStyle='rgba(255,255,255,0.4)';c2.fillRect(0,0,56,56);
+      c2.fillStyle='#006050';c2.font='bold 28px sans-serif';
+      c2.textAlign='center';c2.textBaseline='middle';c2.fillText('✓',28,30);
+    } else {
+      item.draw(c2,28,28,38);
+    }
+    d.appendChild(cv);row.appendChild(d);
+  });
+}
+
+// ═════════════════════════════════════════════════
+// BACKGROUND
+// ═════════════════════════════════════════════════
+function drawBG(){
+  ctx.fillStyle='#FFF9EC';ctx.fillRect(0,0,W,H);
+  for(let tx=0;tx<W;tx+=42) for(let ty=0;ty<H*0.62;ty+=42){
+    ctx.fillStyle=((Math.floor(tx/42)+Math.floor(ty/42))%2===0)?'#FFF3D4':'#FFE8B2';
+    ctx.fillRect(tx,ty,42,42);
+    ctx.strokeStyle='rgba(255,200,100,0.25)';ctx.lineWidth=1;ctx.strokeRect(tx,ty,42,42);
+  }
+  const ty2=H*0.62;
+  ctx.fillStyle='#D4956A';ctx.fillRect(0,ty2,W,H-ty2);
+  ctx.fillStyle='#E8AA7A';ctx.fillRect(0,ty2,W,14);
+  ctx.fillStyle='#B8784A';ctx.fillRect(0,ty2,W,5);
+  ctx.fillStyle='#2B2B2B';ctx.fillRect(0,ty2+4,W,2);
+  ctx.strokeStyle='rgba(150,80,30,0.18)';ctx.lineWidth=2;
+  for(let gx=0;gx<W;gx+=28){
+    ctx.beginPath();ctx.moveTo(gx,ty2+6);ctx.lineTo(gx+14,H);ctx.stroke();
+  }
+}
+
+// ═════════════════════════════════════════════════
+// BOWL
+// ═════════════════════════════════════════════════
+function drawBowl(cx,by,soupLevel){
+  ctx.fillStyle='rgba(0,0,0,0.1)';
+  ctx.beginPath();ctx.ellipse(cx,by+10,50,12,0,0,Math.PI*2);ctx.fill();
+  const bx=cx-48,bT=by-34,bW=96,bH=36;
+  if(soupLevel>0){
+    const a=Math.min(soupLevel/5,1);
+    ctx.fillStyle=`rgba(139,105,20,${a*0.92})`;
+    ctx.beginPath();
+    ctx.moveTo(bx+6,bT+2);ctx.lineTo(bx+bW-6,bT+2);
+    ctx.lineTo(bx+bW+2,bT+bH-4);ctx.lineTo(bx+6,bT+bH-4);
+    ctx.closePath();ctx.fill();
+    if(soupLevel>=4){
+      ctx.fillStyle='#2D5A27';
+      for(let i=0;i<5;i++) ctx.fillRect(cx-24+i*12,bT+10,9,3);
+    }
+    ctx.fillStyle='rgba(255,200,0,0.18)';
+    ctx.beginPath();ctx.ellipse(cx,bT+12,24,6,0,0,Math.PI*2);ctx.fill();
+    for(let i=0;i<3;i++){
+      ctx.strokeStyle=`rgba(180,140,60,${0.4-i*0.1})`;ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(cx-14+i*14,bT-6);
+      ctx.quadraticCurveTo(cx-10+i*14,bT-20,cx-6+i*14,bT-12);ctx.stroke();
+    }
+  } else {
+    ctx.fillStyle='#FFFFFF';
+    ctx.beginPath();
+    ctx.moveTo(bx+6,bT+2);ctx.lineTo(bx+bW-6,bT+2);
+    ctx.lineTo(bx+bW+2,bT+bH-4);ctx.lineTo(bx+6,bT+bH-4);
+    ctx.closePath();ctx.fill();
+  }
+  ctx.fillStyle=soupLevel>0?'#C8A45A':'#EEEEEE';
+  ctx.beginPath();ctx.roundRect(cx-32,bT+bH-4,64,13,4);ctx.fill();
+  ctx.strokeStyle='#2B2B2B';ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(cx-32,bT+bH-4,64,13,4);ctx.stroke();
+  ctx.fillStyle='#0EEED3';ctx.fillRect(bx+6,bT,bW-12,5);
+  ctx.strokeStyle='#2B2B2B';ctx.lineWidth=2.5;
+  ctx.beginPath();
+  ctx.moveTo(bx+6,bT);ctx.lineTo(bx+bW-6,bT);
+  ctx.lineTo(bx+bW+2,bT+bH-4);ctx.lineTo(cx+32,bT+bH+9);
+  ctx.lineTo(cx-32,bT+bH+9);ctx.lineTo(bx,bT+bH-4);
+  ctx.closePath();ctx.stroke();
+}
+
+// ═════════════════════════════════════════════════
+// DRAW FALLING ITEM
+// ═════════════════════════════════════════════════
+const ITEM_PAD = 29;
+function drawFallingItem(item){
+  const sz=46,x=item.x,y=item.y,pad=ITEM_PAD;
+  ctx.fillStyle='rgba(0,0,0,0.08)';
+  ctx.beginPath();ctx.ellipse(x,y+pad*0.92,pad*0.78,pad*0.13,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle=item.bg;
+  ctx.beginPath();ctx.roundRect(x-pad,y-pad,pad*2,pad*2,10);ctx.fill();
+  ctx.strokeStyle=item.border;ctx.lineWidth=3;
+  ctx.beginPath();ctx.roundRect(x-pad,y-pad,pad*2,pad*2,10);ctx.stroke();
+  ctx.strokeStyle='rgba(0,0,0,0.1)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.roundRect(x-pad+2,y-pad+2,pad*2-4,pad*2-4,8);ctx.stroke();
+  item.draw(ctx,x,y-4,sz);
+  ctx.fillStyle='rgba(0,0,0,0.68)';ctx.fillRect(x-pad,y+pad*0.48,pad*2,pad*0.52);
+  ctx.fillStyle='#fff';ctx.font=`bold 10px 'Noto Sans KR',sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(item.name,x,y+pad*0.74);
+}
+
+// ═════════════════════════════════════════════════
+// LANE SYSTEM (non-overlap)
+// ═════════════════════════════════════════════════
+const NUM_LANES = 5;
+const LANE_W = W / NUM_LANES;
+const ITEM_SIZE = ITEM_PAD * 2 + 4; // bounding diameter
+
+function getBusyLanes(){
+  const busy = new Set();
+  fallingItems.forEach(item=>{
+    if(item.y < 120){
+      const lane = Math.max(0,Math.min(NUM_LANES-1,Math.floor(item.x/LANE_W)));
+      busy.add(lane);
+    }
+  });
+  return busy;
+}
+
+function laneToX(lane){
+  return LANE_W*lane + LANE_W/2;
+}
+
+// ═════════════════════════════════════════════════
+// GAME STATE
+// ═════════════════════════════════════════════════
+let gameState='start', bowlX=195, lives=3, step=0;
+let fallingItems=[], lastSpawn=0, spawnInt=1700;
+let keys={}, mouseX=null, touchCurX=null;
+let particles=[], rafId=null, score=0, bowlVel=0;
+const BOWL_Y=395;
+
+function updateHUD(){
+  document.getElementById('scoreDisp').textContent='SCORE: '+score;
+  document.getElementById('livesDisp').textContent=['💔','❤️','❤️❤️','❤️❤️❤️'][lives]||'💔';
+}
+let toastTmr=null;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTmr);
+  toastTmr=setTimeout(()=>t.classList.remove('show'),1600);
+}
+function addParticles(x,y,color){
+  for(let i=0;i<14;i++){
+    const a=Math.random()*Math.PI*2,s=2+Math.random()*5;
+    particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,life:45,color,sz:3+Math.random()*5});
+  }
+}
+
+function spawnItems(){
+  const pool=[{...ITEMS[step],isCorrect:true}];
+  const wp=[...WRONGS,...ITEMS.filter((_,i)=>i!==step)];
+  wp.sort(()=>Math.random()-0.5).slice(0,1+Math.floor(Math.random()*2))
+    .forEach(w=>pool.push({...w,isCorrect:false}));
+  pool.sort(()=>Math.random()-0.5);
+
+  // Assign to non-busy lanes
+  const busy = getBusyLanes();
+  const freeLanes = [];
+  for(let i=0;i<NUM_LANES;i++) if(!busy.has(i)) freeLanes.push(i);
+  freeLanes.sort(()=>Math.random()-0.5);
+
+  // If not enough free lanes, just use random non-colliding x
+  pool.forEach((item,idx)=>{
+    let x;
+    if(idx < freeLanes.length){
+      x = laneToX(freeLanes[idx]);
+    } else {
+      // Try to find a non-busy lane cycling
+      const lane = (freeLanes[idx % Math.max(1,freeLanes.length)] || Math.floor(Math.random()*NUM_LANES));
+      x = laneToX(typeof lane === 'number' ? lane : lane);
+    }
+    // Clamp
+    x = Math.max(ITEM_PAD+4, Math.min(W-ITEM_PAD-4, x));
+    fallingItems.push({
+      ...item,
+      x,
+      y:-ITEM_PAD-5,
+      vy:2.0+Math.random()*1.2,
+      hit:false
+    });
+  });
+}
+
+function showScreen(id){
+  ['startScreen','clearScreen','gameoverScreen','doneScreen'].forEach(n=>{
+    document.getElementById(n).className='screen'+(n===id?' visible':'');
+  });
+}
+
+// ═════════════════════════════════════════════════
+// GAME LOOP
+// ═════════════════════════════════════════════════
+function gameLoop(ts){
+  if(gameState!=='playing') return;
+  rafId=requestAnimationFrame(gameLoop);
+  ctx.clearRect(0,0,W,H);
+  drawBG();
+
+  if(touchCurX!==null) bowlX+=(touchCurX-bowlX)*0.22;
+  else if(mouseX!==null) bowlX+=(mouseX-bowlX)*0.15;
+  else{
+    if(keys['ArrowLeft']||keys['a']) bowlVel=-6;
+    else if(keys['ArrowRight']||keys['d']) bowlVel=6;
+    else bowlVel*=0.72;
+    bowlX+=bowlVel;
+  }
+  bowlX=Math.max(60,Math.min(W-60,bowlX));
+
+  if(ts-lastSpawn>spawnInt){
+    spawnItems();lastSpawn=ts;
+    spawnInt=Math.max(950,spawnInt-12);
+  }
+
+  fallingItems.forEach(item=>{
+    item.y+=item.vy;
+    if(!item.hit && item.y+ITEM_PAD>BOWL_Y-30 && item.y-ITEM_PAD<BOWL_Y+12
+       && item.x>bowlX-54 && item.x<bowlX+54){
+      item.hit=true;
+      if(item.isCorrect){
+        addParticles(item.x,item.y,'#0EEED3');
+        showToast('✅ '+ITEMS[step].name+' 추가!');
+        score+=100;step++;buildStepBar();updateHUD();
+        if(step>=5){gameState='done';setTimeout(()=>showScreen('clearScreen'),500);}
+      } else {
+        addParticles(item.x,item.y,'#FF3D5A');
+        lives--;updateHUD();
+        showToast('❌ 잘못된 재료! ❤️ -1');
+        if(lives<=0){gameState='done';setTimeout(()=>showScreen('gameoverScreen'),500);}
+      }
+    }
+  });
+  fallingItems=fallingItems.filter(i=>i.y<H+60&&!i.hit);
+  fallingItems.forEach(item=>drawFallingItem(item));
+
+  ctx.save();
+  particles.forEach(p=>{
+    ctx.globalAlpha=p.life/45;ctx.fillStyle=p.color;
+    ctx.fillRect(p.x-p.sz/2,p.y-p.sz/2,p.sz,p.sz);
+    p.x+=p.vx;p.y+=p.vy;p.vy+=0.15;p.life--;
+  });
+  ctx.restore();
+  particles=particles.filter(p=>p.life>0);
+  drawBowl(bowlX,BOWL_Y,step);
+}
+
+// ═════════════════════════════════════════════════
+// CANVAS CONTROLS
+// ═════════════════════════════════════════════════
+document.addEventListener('keydown',e=>{keys[e.key]=true;});
+document.addEventListener('keyup',e=>{keys[e.key]=false;});
+C.addEventListener('mousemove',e=>{
+  const r=C.getBoundingClientRect();
+  mouseX=(e.clientX-r.left)*(W/r.width);
+});
+C.addEventListener('mouseleave',()=>{mouseX=null;});
+C.addEventListener('touchstart',e=>{
+  e.preventDefault();
+  const r=C.getBoundingClientRect();
+  touchCurX=(e.touches[0].clientX-r.left)*(W/r.width);
+},{passive:false});
+C.addEventListener('touchmove',e=>{
+  e.preventDefault();
+  const r=C.getBoundingClientRect();
+  touchCurX=(e.touches[0].clientX-r.left)*(W/r.width);
+},{passive:false});
+C.addEventListener('touchend',()=>{touchCurX=null;});
+
+// ═════════════════════════════════════════════════
+// POPUP DRAG (handle → pull up)
+// ═════════════════════════════════════════════════
+const popup = document.getElementById('popup');
+const dragHandle = document.getElementById('dragHandle');
+const dimOverlay = document.getElementById('dimOverlay');
+const POPUP_FULL_Y = 0;
+const POPUP_PEEK_Y = 680;  // how far down (only 80px visible)
+let isDragging = false, dragStartClientY=0, dragStartTranslateY=POPUP_PEEK_Y;
+let currentTranslateY = POPUP_PEEK_Y;
+
+function getTranslateY(el){
+  const st = el.style.transform;
+  if(!st) return 0;
+  const m = st.match(/translateY\(([^p]+)px\)/);
+  return m ? parseFloat(m[1]) : 0;
+}
+function setPopupY(y, animated=false){
+  popup.style.transition = animated ? 'transform .4s cubic-bezier(0.32,0.72,0,1)' : 'none';
+  popup.style.transform = `translateY(${y}px)`;
+  currentTranslateY = y;
+  const prog = 1 - Math.min(y/POPUP_PEEK_Y,1);
+  dimOverlay.style.background = `rgba(0,0,0,${prog*0.52})`;
+  dimOverlay.style.pointerEvents = prog>0 ? 'all' : 'none';
+}
+function openPopup(){
+  popup.classList.add('open');popup.classList.remove('peek');
+  setPopupY(POPUP_FULL_Y, true);
+}
+function peekPopup(){
+  popup.classList.remove('open');popup.classList.add('peek');
+  setPopupY(POPUP_PEEK_Y, true);
+}
+
+function onDragStart(clientY){
+  isDragging=true;
+  dragStartClientY=clientY;
+  dragStartTranslateY=currentTranslateY;
+  popup.style.transition='none';
+}
+function onDragMove(clientY){
+  if(!isDragging) return;
+  const dy = clientY - dragStartClientY;
+  let newY = Math.max(POPUP_FULL_Y, Math.min(POPUP_PEEK_Y, dragStartTranslateY + dy));
+  setPopupY(newY, false);
+}
+function onDragEnd(clientY){
+  if(!isDragging) return;
+  isDragging=false;
+  const dy = clientY - dragStartClientY;
+  const vel = dy; // simple velocity check
+  if(currentTranslateY < POPUP_PEEK_Y/2 || vel < -30){
+    openPopup();
+  } else {
+    peekPopup();
+  }
+}
+
+// Mouse
+dragHandle.addEventListener('mousedown',e=>{onDragStart(e.clientY);e.preventDefault();});
+document.addEventListener('mousemove',e=>{onDragMove(e.clientY);});
+document.addEventListener('mouseup',e=>{onDragEnd(e.clientY);});
+// Touch
+dragHandle.addEventListener('touchstart',e=>{onDragStart(e.touches[0].clientY);e.preventDefault();},{passive:false});
+dragHandle.addEventListener('touchmove',e=>{onDragMove(e.touches[0].clientY);e.preventDefault();},{passive:false});
+dragHandle.addEventListener('touchend',e=>{onDragEnd(e.changedTouches[0].clientY);},{passive:false});
+
+// Click handle to toggle
+dragHandle.addEventListener('click',()=>{
+  if(currentTranslateY >= POPUP_PEEK_Y*0.8) openPopup();
+  else peekPopup();
+});
+
+function handleDimClick(){peekPopup();}
+
+// ═════════════════════════════════════════════════
+// PUBLIC GAME FUNCTIONS
+// ═════════════════════════════════════════════════
+function startGame(){
+  gameState='playing';step=0;lives=3;score=0;
+  fallingItems=[];particles=[];bowlX=195;bowlVel=0;
+  lastSpawn=0;spawnInt=1700;
+  buildStepBar();updateHUD();
+  showScreen(null);
+  cancelAnimationFrame(rafId);
+  rafId=requestAnimationFrame(gameLoop);
+}
+function restartGame(){
+  cancelAnimationFrame(rafId);
+  step=0;gameState='start';
+  ctx.clearRect(0,0,W,H);
+  drawBG();drawBowl(195,BOWL_Y,0);
+  buildStepBar();updateHUD();
+  showScreen('startScreen');
+}
+function missionClear(){showScreen('doneScreen');}
+function closePopup(){peekPopup();cancelAnimationFrame(rafId);}
+
+// ═════════════════════════════════════════════════
+// INIT
+// ═════════════════════════════════════════════════
+buildIngCards();buildStepBar();
+drawBG();drawBowl(195,BOWL_Y,0);
+updateHUD();
+
+// Initial peek state
+setPopupY(POPUP_PEEK_Y, false);
+
+// Auto appear
+setTimeout(()=>{
+  dimOverlay.style.transition='background .4s';
+  setPopupY(POPUP_PEEK_Y+20, false);
+  setTimeout(()=>setPopupY(POPUP_PEEK_Y, true), 100);
+}, 800);
+
+// Responsive scale
+(function(){
+  function resize(){
+    const s=Math.min(window.innerWidth/390,window.innerHeight/844,1);
+    document.getElementById('phoneShell').style.transform=s<1?`scale(${s})`:'';
+  }
+  resize();window.addEventListener('resize',resize);
+})();
+</script>
+</body>
+</html>
